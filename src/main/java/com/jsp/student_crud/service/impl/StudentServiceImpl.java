@@ -6,6 +6,8 @@ import com.jsp.student_crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -16,5 +18,31 @@ public class StudentServiceImpl implements StudentService {
     public Student saveStudent(Student student) {
 
         return studentRepository.save(student);
+    }
+
+    @Override
+    public Student findStudent(int roll) {
+
+
+        return studentRepository.findById(roll).orElseThrow(()->new RuntimeException("Student not found"));
+    }
+    @Override
+    public List<Student> findAllStudent()
+    {
+        return studentRepository.findAll();
+    }
+    @Override
+    public Student updateStudent(Student student)
+    {
+        Student student1 = studentRepository.findById(student.getRoll()).orElseThrow(()->new RuntimeException("Student not found"));
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteStudent(int roll)
+    {
+        Student student = studentRepository.findById(roll).orElseThrow(()->new RuntimeException("Student not found"));
+
+        studentRepository.delete(student);
     }
 }
