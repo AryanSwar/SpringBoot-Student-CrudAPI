@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
     //tight coupling - specialization
 
@@ -17,30 +18,37 @@ public class StudentController {
     @Autowired
     StudentService service;
 
-    @PostMapping("student/save")
+    //removing the end point to achieve handle crud by using @RequestMapping
+//    @PostMapping("student/save")
+    @PostMapping
     public Student save(@RequestBody Student student){
         return service.saveStudent(student);
 
     }
-    @GetMapping("student/find")
+    
+//    @GetMapping("student/find")
+    @GetMapping
     public Student findById(@RequestParam int roll)
     {
         return service.findStudent(roll);
     }
 
-    @GetMapping("/student")
+    //in this time creating GetMapping two method at that time difference between
+    @GetMapping("/find")
     public List<Student> findAllStudents()
     {
         return service.findAllStudent();
     }
 
-    @PutMapping("/student/update")
+//    @PutMapping("/student/update")
+    @PutMapping
     public Student updateStudent(@RequestBody Student student)
     {
         return service.updateStudent(student);
     }
 
-    @DeleteMapping("/student/delete")
+//    @DeleteMapping("/student/delete")
+    @DeleteMapping
     public String delete(@RequestParam int roll)
     {
         service.deleteStudent(roll);
